@@ -195,6 +195,7 @@ class Mover extends Looper {
 
 class XWalker extends Component {
 	constructor(options) {
+		super(options);
 		this.vx = 0;
 		this.vy = 0;
 	}
@@ -205,7 +206,7 @@ class XWalker extends Component {
 
 	getValue(name, hash) {
 		if (name == 'velocity') {
-			hash.vx = this.vx;
+			hash.vx = this.vx; //times speed
 			hash.vy = this.vy;
 		}
 
@@ -236,8 +237,10 @@ class Thing {
 
 		var comps = this.spawnComponents();
 		for (var i = 0; i < comps.length; i++) {
-			var component = comps[i];
+			var component = new comps[i]({'thing' : this});
+			console.log("installing component" + component);
 			this.registerComponent(component);
+
 			this.components.push(component);
 		}
 	}
@@ -254,7 +257,7 @@ class Thing {
 	}
 
 	getValue(name) {
-		var registered = this.registrationNames[name];
+		var registered = this.componentRegistrations[name];
 		if (registered) {
 			var valueHash = {};
 			for (var i = 0; i < registered.length; i++) {
@@ -270,7 +273,7 @@ class Thing {
 	}
 
 	processEvent(name, eventer, hash) {
-		var registered = this.registrationNames[name];
+		var registered = this.componentRegistrations[name];
 		if (registered) {
 			for (var i = 0; i < registered.length; i++) {
 				var component = registered[i];

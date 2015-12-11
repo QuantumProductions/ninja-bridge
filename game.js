@@ -6,7 +6,7 @@ class NinjaBridge extends Game {
 
 	handleSoundsLoaded() {
 	}
-		
+
 	installGroupLoops() {
 		super.installGroupLoops();
 
@@ -17,11 +17,12 @@ class NinjaBridge extends Game {
 
 	
 	setupPlayers() {
-	
+		this.p1 = new Ninja();
+		this.add('p1', this.p1);
 	}
 
 	resetGame() {
-	
+		super.resetGame();
 	}
 
 	onMouseDown(x, y) {
@@ -30,6 +31,11 @@ class NinjaBridge extends Game {
 	loop() {
 		super.loop();
 	}
+}
 
+class Ninja extends Thing {
+	spawnComponents() {
+		return [Mover, XWalker];
+	}
 }
 
