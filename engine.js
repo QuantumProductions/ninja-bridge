@@ -193,6 +193,21 @@ class Mover extends Looper {
 	}
 }
 
+class TurboMover extends Component {
+	registrationNames() {
+		return ['velocity'];
+	}
+
+	getValue(name, hash) {
+		if (name == 'velocity') {
+			hash.vx = hash.vx * 20; //times speed
+			hash.vy = hash.vy * 20;
+		}
+
+		return hash;
+	}	
+}
+
 class XWalker extends Component {
 	constructor(options) {
 		super(options);

@@ -35,7 +35,7 @@ class NinjaBridge extends Game {
 
 class Ninja extends Thing {
 	spawnComponents() {
-		return [Mover, XWalker];
+		return [Mover, XWalker, TurboMover];
 	}
 }
 
