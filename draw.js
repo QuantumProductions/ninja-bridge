@@ -8,7 +8,4 @@ Thing.prototype.draw = function(client, context) {
 			client.drawRect(rect[0],rect[1],rect[2],rect[3], this.getValue('colors', {}).colors[rect[4]]);
 		}
 	}
-	
-	//var registered = this.componentRegistrations[name];
-	
 };
