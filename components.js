@@ -8,7 +8,6 @@ class Colors extends Component {
 	constructor(options) {
 		super(options);
 		this.colors = options['colors'];
-		console.log(this.colors);
 	}
 
 	getValue(name, hash) {
@@ -52,6 +51,10 @@ class AcceleratingMovement extends Component {
 			} else {
 				this.xDirection = 0;
 				this.charge = 0; //another component: listen to input event.. stopped input, now decelerating
+			}
+
+			if (this.charge > this.maxCharge) {
+				this.charge = this.maxCharge; //extract to limit function
 			}
 		}
 	}

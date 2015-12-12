@@ -3,7 +3,6 @@
 class Game {
 	constructor(options) {
 		this.canvas = options['canvas'];
-		console.log("canvas" + this.canvas.width);
 		Thing.prototype.canvas = this.canvas;
 		this.resetBoard();
 		this.resetGame();
@@ -168,7 +167,13 @@ class Game {
 
 class Component {
 	constructor(options) {
+		options = options || {};
 		this.charge = 0;
+		this.maxCharge = 0;
+		if (options['maxCharge']) {
+			this.maxCharge = options['maxCharge'];
+		}
+		
 	}
 
 	loop() {
@@ -238,10 +243,7 @@ class XWalker extends Component {
 			} else {
 				this.vx = 0;
 			}
-			return hash;
 		}
-
-		return hash;
 	}
 }
 
@@ -258,7 +260,6 @@ class Thing {
 		for (var i = 0; i < comps.length; i++) {
 			var component = comps[i];
 			component.thing = this;
-			console.log("installing component" + component);
 			this.registerComponent(component);
 
 			this.components.push(component);
