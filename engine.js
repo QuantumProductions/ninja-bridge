@@ -168,7 +168,7 @@ class Game {
 
 class Component {
 	constructor(options) {
-		
+		this.charge = 0;
 	}
 
 	loop() {
@@ -238,7 +238,10 @@ class XWalker extends Component {
 			} else {
 				this.vx = 0;
 			}
+			return hash;
 		}
+
+		return hash;
 	}
 }
 
