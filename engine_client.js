@@ -108,7 +108,7 @@ class Client {
 
 	loopKeyboardInput() {
 		this.parsePlayer1Input(this.key_pressed_map);
-		//this.parsePlayer2Input(this.key_pressed_map);
+		this.parsePlayer2Input(this.key_pressed_map);
 		//this.game.loopKeyboardInput(this.key_pressed_map);
 	}
 
