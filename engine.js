@@ -247,6 +247,31 @@ class XWalker extends Component {
 	}
 }
 
+class Draw extends Component {
+	registrationNames() {
+		return ['draw'];
+	}
+
+	constructor(options) {
+		super(options);
+	}
+
+	fills() {
+		//subclass
+	}
+
+	strokes() {
+
+	}
+
+	arcs() {
+
+	}
+
+	rects() {
+	}
+}
+
 class Thing {
 	spawnComponents(options) {
 		return [];
