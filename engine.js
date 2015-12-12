@@ -3,6 +3,8 @@
 class Game {
 	constructor(options) {
 		this.canvas = options['canvas'];
+		console.log("canvas" + this.canvas.width);
+		Thing.prototype.canvas = this.canvas;
 		this.resetBoard();
 		this.resetGame();
 		this.installGroupLoops();
@@ -162,12 +164,11 @@ class Game {
 	onMouseDown(x, y) {
 
 	}
-
 }
 
 class Component {
 	constructor(options) {
-		this.thing = options['thing'];
+		
 	}
 
 	loop() {
@@ -242,17 +243,18 @@ class XWalker extends Component {
 }
 
 class Thing {
-	spawnComponents() {
+	spawnComponents(options) {
 		return [];
 	}
 
-	installComponents() {
+	installComponents(options) {
 		this.componentRegistrations = {};
 		this.components = [];
 
-		var comps = this.spawnComponents();
+		var comps = this.spawnComponents(options);
 		for (var i = 0; i < comps.length; i++) {
-			var component = new comps[i]({'thing' : this});
+			var component = comps[i];
+			component.thing = this;
 			console.log("installing component" + component);
 			this.registerComponent(component);
 
@@ -299,14 +301,14 @@ class Thing {
 
 	constructor(options) {
 		if (options && options['position']) {
-			this.x = options['position'].x;
-			this.y = options['position'].y;
+			this.x = options['position'].x * this.canvas.width;
+			this.y = options['position'].y * this.canvas.height;
 		} else {
 			this.x = 2.0;
 			this.y = 2.0;	
 		}
 		
-		this.installComponents();
+		this.installComponents(options);
 		this.active = true;
 	}
 

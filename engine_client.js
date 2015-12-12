@@ -178,7 +178,7 @@ class Client {
 	}
 
 	onKeyDown(event) {
-		event.preventDefault();
+		//event.preventDefault();
 		this.key_pressed_map[this.key_map[event.keyCode]] = true;
 	}
 

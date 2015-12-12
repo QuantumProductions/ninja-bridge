@@ -17,8 +17,13 @@ class NinjaBridge extends Game {
 
 	
 	setupPlayers() {
-		this.p1 = new Ninja();
+		this.p1 = new Ninja({'position' : {'x' : 0.1, 'y' : 0.8},
+													'teamColors' : ['white']});
 		this.add('p1', this.p1);
+
+		this.p2 = new Ninja({'position' : {'x' : 0.9, 'y' : 0.8},
+			'teamColors' : ['red']});
+		this.add('p1', this.p2);
 	}
 
 	resetGame() {
@@ -32,10 +37,3 @@ class NinjaBridge extends Game {
 		super.loop();
 	}
 }
-
-class Ninja extends Thing {
-	spawnComponents() {
-		return [Mover, XWalker, TurboMover];
-	}
-}
-
