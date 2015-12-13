@@ -4,6 +4,7 @@ class Game {
 	constructor(options) {
 		this.canvas = options['canvas'];
 		Thing.prototype.canvas = this.canvas;
+		window.canvas = this.canvas;
 		this.resetBoard();
 		this.resetGame();
 		this.installGroupLoops();

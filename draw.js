@@ -14,11 +14,13 @@ Thing.prototype.draw = function(client, context) {
 		var arcFills = drawable.arcFills();
 		for (var ri = 0; ri < arcFills.length; ri++) {
 			var arc = arcFills[ri];
+			context.beginPath();
+			context.fillStyle = this.getValue('colors', {}).colors[rect[6]];
 			context.arc(arc[0], arc[1], arc[2],arc[3], arc[4], arc[5]);
-			context.fillStyle = this.getValue('colors', {}).colors[arc[6]];
 			context.fill();
+			context.closePath();
 		}
 
-		
+
 	}
 };
