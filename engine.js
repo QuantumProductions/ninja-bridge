@@ -257,18 +257,27 @@ class Draw extends Component {
 	}
 
 	fills() {
-		//subclass
+		return [];
 	}
 
 	strokes() {
-
+		return [];
 	}
 
-	arcs() {
-
+	arcFills() {
+		return [];
 	}
 
-	rects() {
+	arcStrokes() { 
+		return [];
+	}
+
+	rectFills() {
+		return [];
+	}
+
+	rectStrokes() {
+		return [];
 	}
 }
 

@@ -163,7 +163,7 @@ class Client {
 	}
 
 	setBackground() {
-		this.context().clearRect(0, 0, this.canvas.width, this.canvas.height); //500
+		this.context().clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.context().fillStyle = "black";
 		this.context().fillRect(0,0, this.canvas.width, this.canvas.height);
 	}

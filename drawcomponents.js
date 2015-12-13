@@ -6,7 +6,7 @@ class NinjaDraw extends Draw {
 		this.foo = 5;
 	}
 
-	rects() {
+	rectFills() {
 		return [[this.thing.x, this.thing.y, 6, 9, 0]];
 	}
 

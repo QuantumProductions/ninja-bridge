@@ -17,13 +17,13 @@ class NinjaBridge extends Game {
 
 	
 	setupPlayers() {
-		this.p1 = new Ninja({'position' : {'x' : 0.1, 'y' : 0.8},
+		this.p2 = new Ninja({'position' : {'x' : 0.1, 'y' : 0.8},
 													'teamColors' : ['white']});
-		this.add('p1', this.p1);
+		this.add('p2', this.p2);
 
-		this.p2 = new Ninja({'position' : {'x' : 0.9, 'y' : 0.8},
+		this.p1 = new Ninja({'position' : {'x' : 0.9, 'y' : 0.8},
 			'teamColors' : ['red']});
-		this.add('p1', this.p2);
+		this.add('p1', this.p1);
 	}
 
 	resetGame() {
