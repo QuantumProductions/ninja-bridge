@@ -19,6 +19,36 @@ class Colors extends Component {
 	}	
 }
 
+class XWalkingTilt extends Component {
+	defaultMaxCharge() {
+		return 30;
+	}
+
+	registrationNames() {
+		return ['x-movement-tilt'];
+	}
+
+	getValue(name, hash) {
+		var velocity = this.thing.getValue('velocity')
+		//console.log("velocity" + velocity.vx);
+		var maxRunSpeed = this.thing.getValue('max-run-speed')['maxRunSpeed'];
+		// console.log("maxRunSpeed" + maxRunSpeed);
+		var percentage = 0;
+		if (velocity.vx > 0 && velocity.vx > maxRunSpeed) {
+			percentage = 1;
+		} else if (velocity.vx < 0 && velocity.vx < -maxRunSpeed) {
+			percentage = -1;
+		} else {
+			percentage = velocity.vx / maxRunSpeed;
+		}
+		// console.log("percentage" + percentage);
+		// console.log("max charge" + this.maxCharge * percentage);
+		hash.angle = percentage * this.maxCharge;
+
+		return hash;
+	}
+}
+
 class AcceleratingMovement extends Component {
 	constructor(options) {
 		super(options);
@@ -26,11 +56,17 @@ class AcceleratingMovement extends Component {
 	}
 
 	registrationNames() {
-		return ['velocity', 'input']; //this could be modified to be 'go left', and 'go right'
+		return ['velocity', 'input', 'max-run-speed']; //this could be modified to be 'go left', and 'go right'
 	}
 
 	getValue(name, hash) {
-		hash.vx = hash.vx + (0.1 * this.charge * this.xDirection);
+		if (name == 'velocity') {
+			hash.vx = hash.vx + (0.1 * this.charge * this.xDirection);
+			return hash;
+		} else if (name == 'max-run-speed') {
+			hash.maxRunSpeed = this.maxCharge * 0.1;
+		}
+		
 		return hash;
 	}
 

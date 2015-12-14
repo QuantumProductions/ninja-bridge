@@ -167,12 +167,18 @@ class Game {
 }
 
 class Component {
+	defaultMaxCharge() {
+		return 0;
+	}
+
 	constructor(options) {
 		options = options || {};
 		this.charge = 0;
 		this.maxCharge = 0;
 		if (options['maxCharge']) {
 			this.maxCharge = options['maxCharge'];
+		} else {
+			this.maxCharge = this.defaultMaxCharge();
 		}
 		
 	}
