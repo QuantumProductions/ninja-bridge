@@ -30,9 +30,7 @@ class XWalkingTilt extends Component {
 
 	getValue(name, hash) {
 		var velocity = this.thing.getValue('velocity')
-		//console.log("velocity" + velocity.vx);
 		var maxRunSpeed = this.thing.getValue('max-run-speed')['maxRunSpeed'];
-		// console.log("maxRunSpeed" + maxRunSpeed);
 		var percentage = 0;
 		if (velocity.vx > 0 && velocity.vx > maxRunSpeed) {
 			percentage = 1;
@@ -41,8 +39,6 @@ class XWalkingTilt extends Component {
 		} else {
 			percentage = velocity.vx / maxRunSpeed;
 		}
-		// console.log("percentage" + percentage);
-		// console.log("max charge" + this.maxCharge * percentage);
 		hash.angle = percentage * this.maxCharge;
 
 		return hash;
