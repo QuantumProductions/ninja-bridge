@@ -102,6 +102,7 @@ class Game {
 					 	 for (var o = 0; o < collidees.length; o++) {
 					 	   //evaluate collision
 					 	   if (polygonContainsPoint(thing, collidees[o].getValue('collisionVertexes').collisionVertexes)) {
+					 	   	//thing.processEvent('')
 					 	   	console.log("hit");
 					 	   }
 					 	 }
