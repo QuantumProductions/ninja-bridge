@@ -3,10 +3,15 @@
 class Ninja extends Thing {
 	spawnComponents(options) {
 		return [new Mover(), new XWalker(), 
-		new AcceleratingMovement({'maxCharge' : 50}),
+		new AcceleratingMovement({'maxCharge' : [50]}),
 		new Colors({'colors' : options['teamColors']}),
 		new NinjaDraw(),
 		new XWalkingTilt()];
 	}
 }
 
+class SwordHitbox extends Thing {
+	spawnComponents(options) {
+		return [new SwordTip()];
+	}
+}

@@ -21,7 +21,7 @@ class Colors extends Component {
 
 class XWalkingTilt extends Component {
 	defaultMaxCharge() {
-		return 30;
+		return [30];
 	}
 
 	registrationNames() {
@@ -39,7 +39,7 @@ class XWalkingTilt extends Component {
 		} else {
 			percentage = velocity.vx / maxRunSpeed;
 		}
-		hash.angle = percentage * this.maxCharge;
+		hash.angle = percentage * this.maxCharge[0];
 
 		return hash;
 	}
@@ -57,10 +57,10 @@ class AcceleratingMovement extends Component {
 
 	getValue(name, hash) {
 		if (name == 'velocity') {
-			hash.vx = hash.vx + (0.1 * this.charge * this.xDirection);
+			hash.vx = hash.vx + (0.1 * this.charge[0] * this.xDirection);
 			return hash;
 		} else if (name == 'max-run-speed') {
-			hash.maxRunSpeed = this.maxCharge * 0.1;
+			hash.maxRunSpeed = this.maxCharge[0] * 0.1;
 		}
 		
 		return hash;
@@ -70,24 +70,30 @@ class AcceleratingMovement extends Component {
 		if (name == 'input') {
 			if (hash.left) {
 				if (this.xDirection != -1) {
-					this.charge = 0;
+					this.charge[0] = 0;
 				}
 				this.xDirection = -1;
-				this.charge++;
+				this.charge[0]++;
 			} else if (hash.right) {
 				if (this.xDirection != 1) {
-					this.charge = 0;
+					this.charge[0] = 0;
 				}
 				this.xDirection = 1;
-				this.charge++; //another component: max speed
+				this.charge[0]++; //another component: max speed
 			} else {
 				this.xDirection = 0;
-				this.charge = 0; //another component: listen to input event.. stopped input, now decelerating
+				this.charge[0] = 0; //another component: listen to input event.. stopped input, now decelerating
 			}
 
-			if (this.charge > this.maxCharge) {
-				this.charge = this.maxCharge; //extract to limit function
+			if (this.charge[0] > this.maxCharge[0]) {
+				this.charge[0] = this.maxCharge[0]; //extract to limit function
 			}
 		}
 	}
+}
+
+class SwordTip extends Component {
+	collisionFields() {
+		return ['players'];
+	}	
 }

@@ -168,13 +168,17 @@ class Game {
 
 class Component {
 	defaultMaxCharge() {
-		return 0;
+		return [0];
+	}
+
+	collisionFields() {
+		return [];
 	}
 
 	constructor(options) {
 		options = options || {};
-		this.charge = 0;
-		this.maxCharge = 0;
+		this.charge = [0];
+		this.maxCharge = [0];
 		if (options['maxCharge']) {
 			this.maxCharge = options['maxCharge'];
 		} else {
@@ -293,6 +297,23 @@ class Thing {
 		return [];
 	}
 
+	assignCollisionFields() {
+		this.collisionGroups = [];
+		for (var i = 0; i < this.components.length; i++) {
+			var component = this.components[i];
+			for (var ii = 0; ii < component.collisionFields().length; ii++) {
+				var field = component.collisionFields()[ii];
+				var index = this.collisionGroups.indexOf(field);
+				if (index) {
+
+				} else if (index != 0) {
+					this.collisionGroups.push(field);
+				}
+			}
+		}
+
+	}
+
 	installComponents(options) {
 		this.componentRegistrations = {};
 		this.components = [];
@@ -305,6 +326,8 @@ class Thing {
 
 			this.components.push(component);
 		}
+
+		this.assignCollisionFields();
 	}
 
 	registerComponent(component) {
