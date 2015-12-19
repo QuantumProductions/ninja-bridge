@@ -19,11 +19,17 @@ class NinjaBridge extends Game {
 	setupPlayers() {
 		this.p2 = new Ninja({'position' : {'x' : 0.1, 'y' : 0.8},
 													'teamColors' : ['white']});
-		this.add('p2', this.p2);
+		this.add('players', this.p2);
 
 		this.p1 = new Ninja({'position' : {'x' : 0.9, 'y' : 0.8},
 			'teamColors' : ['red']});
-		this.add('p1', this.p1);
+		this.add('players', this.p1);
+
+		var hitbox = new SwordHitbox();
+		hitbox.x = this.p2.x + 100;
+		hitbox.y = this.p2.y;
+		this.add('hitboxes', hitbox);
+
 	}
 
 	resetGame() {

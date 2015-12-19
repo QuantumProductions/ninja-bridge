@@ -93,7 +93,11 @@ class AcceleratingMovement extends Component {
 }
 
 class SwordTip extends Component {
-	collisionFields() {
+	registrationNames() {
+		return [];
+	}
+
+	collisionGroups() {
 		return ['players'];
 	}	
 }

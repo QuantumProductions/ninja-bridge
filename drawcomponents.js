@@ -1,9 +1,25 @@
 "use strict";
 
 class NinjaDraw extends Draw {
-	fills() {
-		var body = [[this.thing.x - w(5), this.thing.y - h(7.5)], [this.thing.x + w(5), this.thing.y - h(7.5)],
+	registrationNames() {
+		return super.registrationNames().concat(['collisionVertexes']);
+	}
+
+	getValue(name, hash) {
+		if (name == 'collisionVertexes') {
+			hash.collisionVertexes = this.bodyVertexes();
+		}
+
+		return hash;
+	}
+
+	bodyVertexes() {
+		 return [[this.thing.x - w(5), this.thing.y - h(7.5)], [this.thing.x + w(5), this.thing.y - h(7.5)],
 								[this.thing.x + w(5), this.thing.y + h(7.5)], [this.thing.x - w(5), this.thing.y + h(7.5)]];
+	}
+
+	fills() {
+		var body = this.bodyVertexes();
 
 		var angle = this.thing.getValue('x-movement-tilt').angle;
 

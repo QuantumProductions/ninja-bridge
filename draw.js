@@ -1,5 +1,8 @@
 Thing.prototype.draw = function(client, context) {
 	var drawables = this.componentRegistrations['draw'];
+	if (!drawables) {
+		return;
+	}
 	for (var i = 0; i < drawables.length; i++) {
 		var drawable = drawables[i];
 

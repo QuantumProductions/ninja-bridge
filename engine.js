@@ -89,11 +89,25 @@ class Game {
 		if (group == undefined) {
 			return;
 		}
-
 		for (var i = 0; i < group.length; i++) {
 			var thing = group[i];
 			if (thing.active === true) {
 				thing.loop();
+				//console.log("checking for collision" + thing.collisionGroups.length);
+				var collisionGroups = thing.collisionGroups;;
+				for (var g = 0; g < collisionGroups.length; g++) {
+					//console.log("collision group" + collisionGroups[g]);
+					 var collidees = this.things[collisionGroups[g]];
+					 if (collidees) {
+					 	 for (var o = 0; o < collidees.length; o++) {
+					 	   //evaluate collision
+					 	   if (polygonContainsPoint(thing, collidees[o].getValue('collisionVertexes').collisionVertexes)) {
+					 	   	console.log("hit");
+					 	   }
+					 	 }
+					 }
+				}
+
 				if (this.loopForGroup[group_name]) {
 					thing = this.loopForGroup[group_name](thing, this);
 				}
@@ -171,7 +185,7 @@ class Component {
 		return [0];
 	}
 
-	collisionFields() {
+	collisionGroups() {
 		return [];
 	}
 
@@ -297,16 +311,19 @@ class Thing {
 		return [];
 	}
 
-	assignCollisionFields() {
+	assignCollisionGroups() {
 		this.collisionGroups = [];
 		for (var i = 0; i < this.components.length; i++) {
 			var component = this.components[i];
-			for (var ii = 0; ii < component.collisionFields().length; ii++) {
-				var field = component.collisionFields()[ii];
+			for (var ii = 0; ii < component.collisionGroups().length; ii++) {
+				var field = component.collisionGroups()[ii];
 				var index = this.collisionGroups.indexOf(field);
-				if (index) {
+				console.log("index" +index);
+				console.log("field" + field);
+				if (index && index > -1) {
 
-				} else if (index != 0) {
+				} else {
+					console.log("field name" + field);
 					this.collisionGroups.push(field);
 				}
 			}
@@ -327,7 +344,7 @@ class Thing {
 			this.components.push(component);
 		}
 
-		this.assignCollisionFields();
+		this.assignCollisionGroups();
 	}
 
 	registerComponent(component) {
