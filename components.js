@@ -107,6 +107,10 @@ class NinjaSwordWeapon extends Component {
 		super(options);
 		this.r = 140;
 		this.sheathed = true;
+		this.x = 0;
+		this.y = 0;
+		this.length = w(10);
+		this.sheathe();
 	}
 
 	defaultMaxCharge() {
@@ -114,7 +118,7 @@ class NinjaSwordWeapon extends Component {
 	}
 
 	registrationNames() {
-		return ['input'];
+		return ['input', 'ninja-sword-tip'];
 	}
 
 	sheathe() {
@@ -123,6 +127,14 @@ class NinjaSwordWeapon extends Component {
 
 	slash() {
 
+	}
+
+	getValue(name, hash) {
+		if (name == 'ninja-sword-tip') {
+			hash.ninjaSwordPosition = //rotated point
+		}
+
+		return hash;
 	}
 
 	processEvent(name, eventer, hash) {
@@ -135,7 +147,7 @@ class NinjaSwordWeapon extends Component {
 
 	loop() {
 		if (this.sheathed) {
-			
+
 		} else {
 			this.r-= 3;
 			this.charge[0]--;
