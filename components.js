@@ -105,8 +105,8 @@ class SwordTip extends Component {
 class NinjaSwordWeapon extends Component {
 	constructor(options) {
 		super(options);
-		this.relativeX = w(6);
-		this.relativeY = 0;
+		this.r = 140;
+		this.sheathed = true;
 	}
 
 	defaultMaxCharge() {
@@ -117,26 +117,32 @@ class NinjaSwordWeapon extends Component {
 		return ['input'];
 	}
 
+	sheathe() {
+
+	}
+
+	slash() {
+
+	}
+
 	processEvent(name, eventer, hash) {
 		if (name == 'input') {
-			if (hash.firing) {
-				if (this.charge[0] == 0 ) {
-					this.resetCharge(0);
-					var combinedX = this.thing.x  + this.relativeX;
-					console.log("combined" + combinedX);
-					var combinedY = this.thing.y;
-					var hitbox = new SwordHitbox({'position' : {'x' : combinedX, 'y' : combinedY}});
-					console.log("hx" + hitbox.x);
-					this.thing.game.add('hitboxes', hitbox);					
-				}
+			if (hash.firing == true && this.sheathed) {
+				this.slash();
 			}
 		}
 	}
 
 	loop() {
-		this.charge[0]--;
-		if (this.charge[0] < 0) {
-			this.charge[0] = 0;
+		if (this.sheathed) {
+			
+		} else {
+			this.r-= 3;
+			this.charge[0]--;
+			if (this.charge < 0) {
+				this.sheathe();
+			}
 		}
+
 	}
 }
