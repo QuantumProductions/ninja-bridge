@@ -5,6 +5,11 @@ class NinjaDraw extends Draw {
 		return super.registrationNames().concat(['collisionVertexes']);
 	}
 
+	strokes() {
+		var swordTip = this.thing.getValue('ninja-sword-tip').ninjaSwordTip;
+		return [[this.thing.position, swordTip], 0];
+	}
+
 	getValue(name, hash) {
 		if (name == 'collisionVertexes') {
 			hash.collisionVertexes = this.bodyVertexes();

@@ -131,7 +131,9 @@ class NinjaSwordWeapon extends Component {
 
 	getValue(name, hash) {
 		if (name == 'ninja-sword-tip') {
-			hash.ninjaSwordPosition = //rotated point
+			var yPoint = this.thing.y - 30;
+			var rotatedPoint = rotate({'x' : this.thing.x, 'y' : yPoint}, this.r);
+			hash.ninjaSwordTip = rotatedPoint;
 		}
 
 		return hash;
