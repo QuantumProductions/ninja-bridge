@@ -34,6 +34,7 @@ class Game {
 	}
 
 	add(group_name, thing) {
+		thing.game = this;
 		if (!this.things[group_name]) {
 			this.things[group_name] = [];
 		}
@@ -184,6 +185,10 @@ class Game {
 class Component {
 	defaultMaxCharge() {
 		return [0];
+	}
+
+	resetCharge(index) {
+		this.charge[index] = this.maxCharge[index];
 	}
 
 	collisionGroups() {
@@ -387,8 +392,11 @@ class Thing {
 
 	constructor(options) {
 		if (options && options['position']) {
-			this.x = options['position'].x * this.canvas.width;
-			this.y = options['position'].y * this.canvas.height;
+			this.x = options['position'].x;
+			this.y = options['position'].y;
+		} else if (options && options['position-canvas']) {
+			this.x = options['position-canvas'].x * this.canvas.width;
+			this.y = options['position-canvas'].y * this.canvas.height;
 		} else {
 			this.x = 2.0;
 			this.y = 2.0;	

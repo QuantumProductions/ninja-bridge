@@ -101,3 +101,42 @@ class SwordTip extends Component {
 		return ['players'];
 	}	
 }
+
+class NinjaSwordWeapon extends Component {
+	constructor(options) {
+		super(options);
+		this.relativeX = w(6);
+		this.relativeY = 0;
+	}
+
+	defaultMaxCharge() {
+		return [10];
+	}
+
+	registrationNames() {
+		return ['input'];
+	}
+
+	processEvent(name, eventer, hash) {
+		if (name == 'input') {
+			if (hash.firing) {
+				if (this.charge[0] == 0 ) {
+					this.resetCharge(0);
+					var combinedX = this.thing.x  + this.relativeX;
+					console.log("combined" + combinedX);
+					var combinedY = this.thing.y;
+					var hitbox = new SwordHitbox({'position' : {'x' : combinedX, 'y' : combinedY}});
+					console.log("hx" + hitbox.x);
+					this.thing.game.add('hitboxes', hitbox);					
+				}
+			}
+		}
+	}
+
+	loop() {
+		this.charge[0]--;
+		if (this.charge[0] < 0) {
+			this.charge[0] = 0;
+		}
+	}
+}
