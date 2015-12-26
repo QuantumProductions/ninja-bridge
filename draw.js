@@ -6,6 +6,18 @@ Thing.prototype.draw = function(client, context) {
 	for (var i = 0; i < drawables.length; i++) {
 		var drawable = drawables[i];
 
+		var strokes = drawable.strokes();
+		for (var si = 0; si < strokes.length; si++) {
+			var stroke = strokes[si];
+			var points = stroke[0];
+			context.beginPath();
+			context.moveTo(points[0], points[1]);
+			context.lineTo(points[2], points[3]);
+			context.strokeStyle = this.getValue('colors').colors[stroke[1]];
+			context.stroke();
+			context.closePath();
+		}
+
 		var fills = drawable.fills();
 		for (var ri = 0; ri < fills.length; ri++) {
 			var fill = fills[ri];

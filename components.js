@@ -105,11 +105,10 @@ class SwordTip extends Component {
 class NinjaSwordWeapon extends Component {
 	constructor(options) {
 		super(options);
-		this.r = 140;
-		this.sheathed = true;
+		this.r = 10;
 		this.x = 0;
 		this.y = 0;
-		this.length = w(10);
+		this.length = w(30);
 		this.sheathe();
 	}
 
@@ -122,17 +121,19 @@ class NinjaSwordWeapon extends Component {
 	}
 
 	sheathe() {
-
+		this.sheathed = true;
 	}
 
 	slash() {
-
+		//
 	}
 
 	getValue(name, hash) {
 		if (name == 'ninja-sword-tip') {
-			var yPoint = this.thing.y - 30;
-			var rotatedPoint = rotate({'x' : this.thing.x, 'y' : yPoint}, this.r);
+			var yPoint = this.thing.y - this.length;
+			var tilt = 140;
+			var rotatedPoint = rotate_point(this.thing.x, yPoint, this.thing.x, this.thing.y, tilt);
+			console.log(rotatedPoint.y);
 			hash.ninjaSwordTip = rotatedPoint;
 		}
 

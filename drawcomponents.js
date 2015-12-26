@@ -7,7 +7,8 @@ class NinjaDraw extends Draw {
 
 	strokes() {
 		var swordTip = this.thing.getValue('ninja-sword-tip').ninjaSwordTip;
-		return [[this.thing.position, swordTip], 0];
+		//console.log("sword tip" + swordTip.x);
+		return [[[this.thing.x, this.thing.y, swordTip.x, swordTip.y], 0]];
 	}
 
 	getValue(name, hash) {
