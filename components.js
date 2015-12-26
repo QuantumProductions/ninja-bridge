@@ -136,9 +136,10 @@ class NinjaSwordWeapon extends Component {
 	getValue(name, hash) {
 		if (name == 'ninja-sword-tip') {
 			var yPoint = this.thing.y - this.length;
-			var tilt = this.r
+			var lastX = this.thing.getValue('lastx').lastx;
+			var tilt = this.r * -lastX;// + (180 * lastX);
+
 			var rotatedPoint = rotate_point(this.thing.x, yPoint, this.thing.x, this.thing.y, tilt);
-			console.log(rotatedPoint.y);
 			hash.ninjaSwordTip = rotatedPoint;
 		}
 
@@ -157,13 +158,18 @@ class NinjaSwordWeapon extends Component {
 		}
 	}
 
+	rotateBladeTowardsReset() {
+		this.r+= 7;
+		if (this.r > 360) {
+			this.r-= 360;
+		}
+	}
+
 	loop() {
 		if (this.sheathed) {
-			if (this.r < this.resetR || this.r > this.slashR) {
-				this.r+= 7;
-				if (this.r > 360) {
-					this.r-= 360;
-				}
+			if (!this.canSlash()) {
+				this.rotateBladeTowardsReset();
+				
 				if (this.r > this.resetR) {
 					this.r = this.resetR;
 				}

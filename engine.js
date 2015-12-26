@@ -248,18 +248,21 @@ class TurboMover extends Component {
 class XWalker extends Component {
 	constructor(options) {
 		super(options);
-		this.vx = 0;
+		this.vx = 0; //extract properties so that getValue is automatic?
 		this.vy = 0;
+		this.lastx =0;
 	}
 
 	registrationNames() {
-		return ['input', 'velocity'];
+		return ['input', 'velocity', 'lastx'];
 	}
 
 	getValue(name, hash) {
 		if (name == 'velocity') {
 			hash.vx = this.vx; //times speed
 			hash.vy = this.vy;
+		} else if (name == 'lastx') {
+			hash.lastx = this.lastx;
 		}
 
 		return hash;
@@ -269,8 +272,10 @@ class XWalker extends Component {
 		if (name == 'input') {
 			if (hash.left) {
 				this.vx = -1;
+				this.lastx = -1;
 			} else if (hash.right) {
 				this.vx = 1;
+				this.lastx = 1;
 			} else {
 				this.vx = 0;
 			}
