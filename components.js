@@ -108,8 +108,10 @@ class NinjaSwordWeapon extends Component {
 		this.r = 10;
 		this.x = 0;
 		this.y = 0;
-		this.length = w(30);
+		this.length = w(60);
 		this.sheathe();
+		this.resetR = 140;
+		this.slashR = 210;
 	}
 
 	defaultMaxCharge() {
@@ -122,16 +124,19 @@ class NinjaSwordWeapon extends Component {
 
 	sheathe() {
 		this.sheathed = true;
+		//this.r = this.resetR;
 	}
 
 	slash() {
-		//
+		this.r = this.slashR;
+		this.sheathed = false;
+		this.resetCharge(0);
 	}
 
 	getValue(name, hash) {
 		if (name == 'ninja-sword-tip') {
 			var yPoint = this.thing.y - this.length;
-			var tilt = 140;
+			var tilt = this.r
 			var rotatedPoint = rotate_point(this.thing.x, yPoint, this.thing.x, this.thing.y, tilt);
 			console.log(rotatedPoint.y);
 			hash.ninjaSwordTip = rotatedPoint;
@@ -140,9 +145,13 @@ class NinjaSwordWeapon extends Component {
 		return hash;
 	}
 
+	canSlash() {
+		return this.r == this.resetR;
+	}
+
 	processEvent(name, eventer, hash) {
 		if (name == 'input') {
-			if (hash.firing == true && this.sheathed) {
+			if (hash.firing == true && this.sheathed && this.canSlash()) {
 				this.slash();
 			}
 		}
@@ -150,9 +159,17 @@ class NinjaSwordWeapon extends Component {
 
 	loop() {
 		if (this.sheathed) {
-
+			if (this.r < this.resetR || this.r > this.slashR) {
+				this.r+= 7;
+				if (this.r > 360) {
+					this.r-= 360;
+				}
+				if (this.r > this.resetR) {
+					this.r = this.resetR;
+				}
+			}
 		} else {
-			this.r-= 3;
+			this.r+= 14;
 			this.charge[0]--;
 			if (this.charge < 0) {
 				this.sheathe();

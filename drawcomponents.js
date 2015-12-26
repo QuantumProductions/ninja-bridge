@@ -20,8 +20,8 @@ class NinjaDraw extends Draw {
 	}
 
 	bodyVertexes() {
-		 return [[this.thing.x - w(5), this.thing.y - h(7.5)], [this.thing.x + w(5), this.thing.y - h(7.5)],
-								[this.thing.x + w(5), this.thing.y + h(7.5)], [this.thing.x - w(5), this.thing.y + h(7.5)]];
+		 return [[this.thing.x - w(10), this.thing.y - h(15)], [this.thing.x + w(10), this.thing.y - h(15)],
+								[this.thing.x + w(10), this.thing.y + h(15)], [this.thing.x - w(10), this.thing.y + h(15)]];
 	}
 
 	fills() {
@@ -40,8 +40,8 @@ class NinjaDraw extends Draw {
 
 	arcFills() {
 		var angle = this.thing.getValue('x-movement-tilt').angle;
-		var point = rotate_point(this.thing.x, this.thing.y - h(15), this.thing.position().x, this.thing.position().y, angle);
-		return [[point.x, point.y, w(6), 0, 2 * Math.PI, false, 0]];
+		var point = rotate_point(this.thing.x, this.thing.y - h(30), this.thing.position().x, this.thing.position().y, angle);
+		return [[point.x, point.y, w(12), 0, 2 * Math.PI, false, 0]];
 	}
 
 }
