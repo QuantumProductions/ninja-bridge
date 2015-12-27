@@ -112,6 +112,20 @@ class NinjaSwordWeapon extends Component {
 		this.sheathe();
 		this.resetR = 140;
 		this.slashR = 210;
+	 	this.hitbox = new SwordHitbox(); //these could all be dictionaries... this.atr[resetR]
+	 	                                 //ninja-sword-tip.. this.atr['ninja-sword-tip']
+    this.swordtip = {'x' : 0, 'y' : 0};
+	}
+
+	postRegistration() {
+		this.calculateSwordTip();
+	}
+
+	calculateSwordTip() {
+		var yPoint = this.thing.y - this.length;
+		var lastX = this.thing.getValue('lastx').lastx;
+		var tilt = this.r * -lastX;
+		this.swordtip = rotate_point(this.thing.x, yPoint, this.thing.x, this.thing.y, tilt);
 	}
 
 	defaultMaxCharge() {
@@ -119,12 +133,11 @@ class NinjaSwordWeapon extends Component {
 	}
 
 	registrationNames() {
-		return ['input', 'ninja-sword-tip'];
+		return ['input', 'ninja-sword-tip', 'ninja-sword-hitbox'];
 	}
 
 	sheathe() {
 		this.sheathed = true;
-		//this.r = this.resetR;
 	}
 
 	slash() {
@@ -135,12 +148,10 @@ class NinjaSwordWeapon extends Component {
 
 	getValue(name, hash) {
 		if (name == 'ninja-sword-tip') {
-			var yPoint = this.thing.y - this.length;
-			var lastX = this.thing.getValue('lastx').lastx;
-			var tilt = this.r * -lastX;// + (180 * lastX);
-
-			var rotatedPoint = rotate_point(this.thing.x, yPoint, this.thing.x, this.thing.y, tilt);
-			hash.ninjaSwordTip = rotatedPoint;
+			this.calculateSwordTip();
+			hash.ninjaSwordTip = this.swordtip;
+		} else if (name == 'ninja-sword-hitbox') {
+			hash.ninjaSwordHitbox = this.hitbox;
 		}
 
 		return hash;
@@ -182,5 +193,8 @@ class NinjaSwordWeapon extends Component {
 			}
 		}
 
+		this.calculateSwordTip();
+		this.hitbox.x = this.swordtip.x;
+		this.hitbox.y = this.swordtip.y;
 	}
 }

@@ -187,6 +187,10 @@ class Component {
 		return [0];
 	}
 
+	postRegistration() {
+		
+	}
+
 	resetCharge(index) {
 		this.charge[index] = this.maxCharge[index];
 	}
@@ -351,6 +355,7 @@ class Thing {
 			var component = comps[i];
 			component.thing = this;
 			this.registerComponent(component);
+			component.postRegistration();
 
 			this.components.push(component);
 		}

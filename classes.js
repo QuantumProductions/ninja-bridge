@@ -5,9 +5,9 @@ class Ninja extends Thing {
 		return [new Mover(), new XWalker(), 
 		new AcceleratingMovement({'maxCharge' : [50]}),
 		new Colors({'colors' : options['teamColors']}),
-		new NinjaDraw(),
 		new XWalkingTilt(),
-		new NinjaSwordWeapon()];
+		new NinjaSwordWeapon(),
+		new NinjaDraw()];
 	}
 }
 
