@@ -34,6 +34,7 @@ class Game {
 	}
 
 	add(group_name, thing) {
+		console.log("adding" + group_name +  " with " + thing);
 		thing.game = this;
 		if (!this.things[group_name]) {
 			this.things[group_name] = [];
@@ -42,6 +43,11 @@ class Game {
 		var group = this.things[group_name];
 	
 		group.push(thing);
+
+		for (var i = 0; i < thing.components.length; i++) {
+			var component = thing.components[i];
+			component.postRegistration();
+		}
 	}
 
 
@@ -355,7 +361,6 @@ class Thing {
 			var component = comps[i];
 			component.thing = this;
 			this.registerComponent(component);
-			component.postRegistration();
 
 			this.components.push(component);
 		}

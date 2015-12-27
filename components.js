@@ -119,6 +119,7 @@ class NinjaSwordWeapon extends Component {
 
 	postRegistration() {
 		this.calculateSwordTip();
+		this.thing.game.add('hitboxes', this.hitbox);
 	}
 
 	calculateSwordTip() {
@@ -148,7 +149,6 @@ class NinjaSwordWeapon extends Component {
 
 	getValue(name, hash) {
 		if (name == 'ninja-sword-tip') {
-			this.calculateSwordTip();
 			hash.ninjaSwordTip = this.swordtip;
 		} else if (name == 'ninja-sword-hitbox') {
 			hash.ninjaSwordHitbox = this.hitbox;
