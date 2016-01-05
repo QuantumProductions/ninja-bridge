@@ -7,7 +7,8 @@ class Ninja extends Thing {
 		new Colors({'colors' : options['teamColors']}),
 		new XWalkingTilt(),
 		new NinjaSwordWeapon(),
-		new NinjaDraw()];
+		new NinjaDraw(),
+		new NinjaWarrior()];
 	}
 }
 

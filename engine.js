@@ -103,12 +103,13 @@ class Game {
 				//console.log("checking for collision" + thing.collisionGroups.length);
 				var collisionGroups = thing.collisionGroups;;
 				for (var g = 0; g < collisionGroups.length; g++) {
-					//console.log("collision group" + collisionGroups[g]);
 					 var collidees = this.things[collisionGroups[g]];
 					 if (collidees) {
 					 	 for (var o = 0; o < collidees.length; o++) {
 					 	   //evaluate collision
 					 	   if (polygonContainsPoint(thing, collidees[o].getValue('collisionVertexes').collisionVertexes)) {
+					 	   	collidees[o].processEvent('collision', thing, {});
+					 	   	thing.processEvent('collision', collidees[o], {});
 					 	   	//thing.processEvent('')
 					 	   	console.log("hit");
 					 	   }
@@ -235,8 +236,10 @@ class Looper extends Component {
 class Mover extends Looper {
 	loop() {
 		var velocity = this.thing.getValue('velocity');
+		if (this.thing.move) {
 		this.thing.x += velocity.vx;
 		this.thing.y += velocity.vy;
+		}
 	}
 }
 
@@ -333,6 +336,7 @@ class Thing {
 	}
 
 	assignCollisionGroups() {
+		this.move = true;
 		this.collisionGroups = [];
 		for (var i = 0; i < this.components.length; i++) {
 			var component = this.components[i];
